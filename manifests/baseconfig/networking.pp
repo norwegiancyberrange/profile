@@ -5,14 +5,16 @@
 class profile::baseconfig::networking {
 
   $nic = $facts['networking']['primary']
-  $searchdomain = lookup('profile::networking::searchdomain')
+  $searchdomain = lookup('profile::dns::searchdomain')
+  $dns_servers = lookup('profile::dns::nameservers')
 
   class { '::netplan':
     ethernets     => {
       $nic => {
         'dhcp4'       => true,
         'nameservers' => {
-          'search' => [ $searchdomain ],
+          'addresses' => split($dns_servers, ' '),
+          'search'    => [ $searchdomain ],
         },
       },
     },
