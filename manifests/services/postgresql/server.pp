@@ -13,7 +13,7 @@ class profile::services::postgresql::server {
 
   class { '::postgresql::globals':
     manage_package_repo => true,
-    version             => '13.0',
+    version             => '13',
   }
 
   class { '::postgresql::server':
