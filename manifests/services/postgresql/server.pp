@@ -9,7 +9,7 @@ class profile::services::postgresql::server {
   $netmask = $facts['networking']['netmask']
   $prefix = ip_prefixlength("${ipv4}/${netmask}")
   $cidr = "${subnet}/${prefix}"
-  $ips = concat($ipv4, $ipv6, '127.0.0.1', '::1')
+  $ips = concat([$ipv4], $ipv6, '127.0.0.1', '::1')
 
   class { '::postgresql::globals':
     manage_package_repo => true,
