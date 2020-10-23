@@ -10,7 +10,6 @@ class profile::services::rabbitmq {
   }
 
   class { '::rabbitmq':
-    repos_ensure      => true,
     delete_guest_user => true,
     ipv6              => $ipv6
   }
