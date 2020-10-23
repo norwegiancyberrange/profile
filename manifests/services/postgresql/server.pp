@@ -1,0 +1,24 @@
+# Install a PostgreSQL server
+class profile::services::postgresql::server {
+
+  $password = lookup('profile::postgres::password')
+
+  $ipv4 = $facts['networking']['ip']
+  $ipv6 = $facts['networking']['ip6']
+  $subnet = $facts['networking']['network']
+  $netmask = $facts['networking']['netmask']
+  $prefix = ip_prefixlength("${ipv4}/${netmask}")
+  $cidr = "${subnet}/${prefix}"
+  $ips = concat($ipv4, $ipv6, '127.0.0.1', '::1')
+
+  class { '::postgresql::globals':
+    manage_package_repo => true,
+    version             => '13.0',
+  }
+
+  class { '::postgresql::server':
+    postgres_password       => $password,
+    listen_addresses        => join($ips, ','),
+    ip_mask_allow_all_users => $cidr,
+  }
+}
