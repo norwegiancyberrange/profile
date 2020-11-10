@@ -1,5 +1,5 @@
 <%- | String $registry,
-      String $dispatcher_version
+      Integer $dispatcher_version
 | -%>
 version: "3.0"
 services:
