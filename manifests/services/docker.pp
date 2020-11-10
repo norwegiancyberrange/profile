@@ -10,4 +10,8 @@ class profile::services::docker {
   }
 
   class { '::docker::compose': }
+
+  class { '::profile::services::docker::registry':
+    require => Class['docker']
+  }
 }
