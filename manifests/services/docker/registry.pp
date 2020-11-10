@@ -5,11 +5,8 @@ class profile::services::docker::registry {
   $username = lookup('profile::docker::registry::username', Variant[String,Boolean], undef, false)
   $password = lookup('profile::docker::registry::password', Variant[String,Boolean], undef, false)
 
-  if ($registry) {
-    docker::registry { $registry:
-      username => $username,
-      password => $password,
-    }
+  docker::registry { $registry:
+    username => $username,
+    password => $password,
   }
-
 }

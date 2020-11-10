@@ -3,6 +3,9 @@ class profile::services::docker {
 
   $dns_servers = split(lookup('profile::dns::nameservers'), ' ')
   $dns_search = lookup('profile::dns::searchdomain')
+  $enable_ncr = lookup('profile::ncr::enable', {
+    'default_value' => false,
+  })
 
   class { '::docker':
     dns        => $dns_servers,
@@ -11,7 +14,9 @@ class profile::services::docker {
 
   class { '::docker::compose': }
 
-  class { '::profile::services::docker::registry':
-    require => Class['docker']
+  if ($enable_ncr) {
+    class { '::profile::services::docker::ncr':
+      require => Class['docker']
+    }
   }
 }

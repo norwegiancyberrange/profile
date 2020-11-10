@@ -1,0 +1,14 @@
+<%- | String $registry,
+      String $dispatcher_version
+| -%>
+version: "3.0"
+services:
+  dispatcher:
+    image: "<%= $registry %>/kodefabrikken/dispatcher:<%= $dispatcher_version %>"
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    volumes:
+      - /opt/ncr/conf:/opt/ncr/conf
+    env_file:
+      - ./prod.env
