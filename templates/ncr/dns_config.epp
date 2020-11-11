@@ -1,6 +1,6 @@
-<%- | String $nameserver
-      String $domain
-      String $key_name
+<%- | String $nameserver,
+      String $domain,
+      String $key_name,
       String $key_value
 | -%>
 {

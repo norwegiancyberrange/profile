@@ -1,5 +1,5 @@
-<%- | String $default_image
-      String $default_flavor
+<%- | String $default_image,
+      String $default_flavor,
       String $default_ssh_key
 | -%>
 {
