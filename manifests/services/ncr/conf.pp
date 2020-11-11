@@ -12,6 +12,14 @@ class profile::services::ncr::conf {
   })
   $rabbitpassword = lookup('profile::rabbitmq::password')
 
+  $dnsserver = lookup('profile::ncr::dyndns::server')
+  $dnsdomain = lookup('profile::ncr::dyndns::domain')
+  $dnskey    = lookup('profile::ncr::dyndns::key')
+
+  $default_image   = lookup('profile::ncr::vmconf::default_image')
+  $default_flavor  = lookup('profile::ncr::vmconf::default_flavor')
+  $default_ssh_key = lookup('profile::ncr::vmconf::default_ssh_key')
+
   file { '/opt/ncr':
     ensure => directory,
     owner  => root,
@@ -53,5 +61,30 @@ class profile::services::ncr::conf {
     group  => root,
     mode   => '0644',
     source => 'puppet:///modules/profile/ncr/ctfd_config.bash',
+  }
+
+  file { '/opt/ncr/conf/dns_config.json':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('profile/ncr/dns_config.epp', {
+      'nameserver' => $dnsserver,
+      'domain'     => $dnsdomain,
+      'key_name'   => "${dnsdomain}-key",
+      'key_value'  => $dnskey,
+    }),
+  }
+
+  file { '/opt/ncr/conf/vm_config.json':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('profile/ncr/vm_config.epp', {
+      'default_image'   => $default_image,
+      'default_flavor'  => $default_flavor,
+      'default_ssh_key' => $default_ssh_key,
+    }),
   }
 }

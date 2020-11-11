@@ -1,0 +1,21 @@
+<%- | String $default_image
+      String $default_flavor
+      String $default_ssh_key
+| -%>
+{
+    "default_image": "<%= $default_image %>",
+    "default_flavor": "<%= $default_flavor %>",
+    "default_ssh_key": "<%= $default_ssh_key %>",
+    "default_network": "auto",
+    "vm_params": {
+        "ctfd": {
+            "script_file": "ctfd_config.bash"
+        }
+    },
+    "fip_network": {
+        "fip_pool_id": "",
+        "fip_pool_name": "ntnu-internal",
+        "tenant_id": "",
+        "project_name": ""
+    }
+}

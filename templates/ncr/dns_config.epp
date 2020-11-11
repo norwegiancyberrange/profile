@@ -1,0 +1,21 @@
+<%- | String $nameserver
+      String $domain
+      String $key_name
+      String $key_value
+| -%>
+{
+    "nameserver": "<%= $nameserver %>",
+    "port": "53",
+    "domain": "<%= $domain %>",
+    "mbox": "hostmaster.ntnu.no",
+    "tls_key_file": "",
+    "tls_cert_file": "",
+    "tls_host": "",
+    "tls_ca_file": "",
+    "timeout": 5000,
+    "tsig_secret": {
+        "key_name": "<%= $key_name %>",
+        "key_value": "<%= $key_value %>",
+        "algorithm": "hmac-sha512"
+    }
+}
