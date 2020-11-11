@@ -52,6 +52,6 @@ class profile::services::ncr::conf {
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => 'puppet:///modules/profile/ctfd_config.bash',
+    source => 'puppet:///modules/profile/ncr/ctfd_config.bash',
   }
 }
