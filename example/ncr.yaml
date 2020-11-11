@@ -1,0 +1,18 @@
+---
+# Install NCR containers. Defaults to false
+profile::ncr::enable: true
+
+# Configure local docker registry
+profile::ncr::registry::name: '<fqdn for local docker registry>'
+profile::ncr::registry::username: '<username>'
+profile::ncr::registry::password: '<password>'
+
+# DynDNS config for VMs created by the NCR portal
+profile::ncr::dyndns::server: '<dyndns server>'
+profile::ncr::dyndns::domain: '<dyndns domain>'
+profile::ncr::dyndns::key: '<dydns update key>'
+
+# Default conf for VMs created by NCR portal
+profile::ncr::vmconf::default_image: '<uuid>'
+profile::ncr::vmconf::default_flavor: '<uuid>'
+profile::ncr::vmconf::default_ssh_key: '<key-name>'
