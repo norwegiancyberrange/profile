@@ -11,6 +11,11 @@ class profile::services::postgresql::server {
   $cidr = "${subnet}/${prefix}"
   $ips = concat([$ipv4], $ipv6, '127.0.0.1', '::1')
 
+  $enable_ncr = lookup('profile::ncr::enable', {
+    'default_value' => false,
+  })
+
+
   class { '::postgresql::globals':
     manage_package_repo => true,
     version             => '13',
@@ -20,5 +25,9 @@ class profile::services::postgresql::server {
     postgres_password       => $password,
     listen_addresses        => join($ips, ','),
     ip_mask_allow_all_users => $cidr,
+  }
+
+  if($enable_ncr) {
+    include ::profile::services::postgresql::ncr
   }
 }
